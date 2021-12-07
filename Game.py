@@ -1,11 +1,11 @@
 secret_word: str
 tries: int
 score: int = 0
-game_mode_value: int = 0
+game_mode_value: int
 
 
 def play():
-    check(guess())
+    check(guess_word())
 
 
 def run():
@@ -93,19 +93,19 @@ def selection():
         selection()
 
 
-def guess():
+def guess_word():
     user_guess = input("Input a Guess: ")
     print(user_guess)
     return user_guess
 
 
-def check(value):
+def check(guess):
     global score, tries
-    if value == secret_word:
+    if guess == secret_word:
         score += 100
         score_calc()
         logos(8)
-    elif value in secret_word:
+    elif guess in secret_word:
         score -= 5
         tries -= 1
         logos(9)
