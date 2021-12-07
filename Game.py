@@ -1,13 +1,19 @@
-secret_word: str
-tries: int
-score: int = 0
-game_mode_value: int
+# Undefined Global Variables
+SECRET_WORD: str
+TRIES: int
+SCORE: int = 0
+
+# Defined Global Variables
+IS_IN_THE_GUESS: int = 5
+IS_NOT_IN_THE_GUESS: int = 10
+WINNING_BONUS: int = 100
+GAME_MODE_VALUE: int
+EASY_MODE: int = 10
+NORMAL_MODE: int = 7
+HARD_MODE: int = 4
 
 
-def play():
-    check(guess_word())
-
-
+# Method that starts the match
 def run():
     secret()
     game_mode()
@@ -15,6 +21,12 @@ def run():
     play()
 
 
+# Method that make a play in the game
+def play():
+    check(guess_word())
+
+
+# Method that contains all messages outputs from the application
 def logos(value):
     if value == 1:
         print("########################################")
@@ -34,15 +46,15 @@ def logos(value):
         print("########################################")
     elif value == 4:
         print("########################################")
-        print("You will have : " + str(tries) + " attempts.\nGood Luck!")
+        print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
         print("########################################")
     elif value == 5:
         print("########################################")
-        print("You will have : " + str(tries) + " attempts.\nGood Luck!")
+        print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
         print("########################################")
     elif value == 6:
         print("########################################")
-        print("You will have : " + str(tries) + " attempts.\nGood Luck!")
+        print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
         print("########################################")
     elif value == 7:
         print("########################################")
@@ -50,7 +62,7 @@ def logos(value):
         print("########################################")
     elif value == 8:
         print("########################################")
-        print("You Win!\nTotal Score: " + str(score))
+        print("You Win!\nTotal Score: " + str(SCORE))
         print("########################################")
     elif value == 9:
         print("########################################")
@@ -74,74 +86,90 @@ def logos(value):
         print("########################################")
         print("Thanks for playing.\nSee you next time!")
         print("########################################")
+    elif value == 14:
+        print("########################################")
+        print("###            GAME OVER             ###")
+        print("########################################")
 
 
+# Method that gets the secret word from the opponent to set up the match
 def secret():
     logos(2)
-    global secret_word
-    secret_word = input("Input a Secret Word: ")
+    global SECRET_WORD
+    SECRET_WORD = input("Input a Secret Word: ")
 
 
+# Method that shows the game modes to the player
 def game_mode():
     logos(3)
     selection()
 
 
+# Method that get the selected game mode from the player
 def selection():
     option = int(input("Select a mode: "))
-    global tries, game_mode_value
+    global TRIES, GAME_MODE_VALUE
     if option == 1:
-        tries = 10
-        game_mode_value = option
+        TRIES = EASY_MODE
+        GAME_MODE_VALUE = option
         logos(4)
     elif option == 2:
-        game_mode_value = option
-        tries = 7
+        GAME_MODE_VALUE = option
+        TRIES = NORMAL_MODE
         logos(5)
     elif option == 3:
-        game_mode_value = option
-        tries = 4
+        GAME_MODE_VALUE = option
+        TRIES = HARD_MODE
         logos(6)
     else:
         logos(7)
         selection()
 
 
+# Method that get a guess word o char from the player and returns the value
 def guess_word():
     user_guess = input("Input a Guess: ")
     print(user_guess)
     return user_guess
 
 
+# Method that checks if the guess word is correct or not
 def check(guess):
-    global score, tries
-    if guess == secret_word:
-        score += 100
-        score_calc()
-        logos(8)
-        replay()
-    elif guess in secret_word:
-        score -= 5
-        tries -= 1
-        logos(9)
-        play()
+    global SCORE, TRIES
+    if TRIES > 0:
+        if guess == SECRET_WORD:
+            SCORE += WINNING_BONUS
+            score_calc()
+            logos(8)
+            replay()
+        elif guess in SECRET_WORD:
+            SCORE -= IS_IN_THE_GUESS
+            TRIES -= len(guess)
+            logos(9)
+            play()
+        else:
+            TRIES -= 1
+            SCORE -= IS_NOT_IN_THE_GUESS
+            logos(10)
+            play()
     else:
-        tries -= 1
-        score -= 10
-        logos(10)
-        play()
+        logos(14)
+        replay()
+        return 0
 
 
+# Method that calculates the score based on the game mode
 def score_calc():
-    global score, tries, game_mode_value
-    if game_mode_value == 1:
-        score += tries * 5
-    elif game_mode_value == 2:
-        score += tries * 7
-    elif game_mode_value == 3:
-        score += tries * 10
+    global SCORE, TRIES, GAME_MODE_VALUE
+    if GAME_MODE_VALUE == 1:
+        SCORE += TRIES * 5
+    elif GAME_MODE_VALUE == 2:
+        SCORE += TRIES * 7
+    elif GAME_MODE_VALUE == 3:
+        SCORE += TRIES * 10
 
 
+# Method that asks the user if he wants to play again or close the application
 def replay():
     logos(11)
     option = int(input(""))
