@@ -1,107 +1,115 @@
 # Undefined Global Variables
 SECRET_WORD: str
+CORRECT_CHARS: str
+INCORRECT_CHARS: str
+GAME_MODE_VALUE: int
 TRIES: int
-SCORE: int = 0
 
 # Defined Global Variables
 IS_IN_THE_GUESS: int = 5
 IS_NOT_IN_THE_GUESS: int = 10
 WINNING_BONUS: int = 100
-GAME_MODE_VALUE: int
-EASY_MODE: int = 10
-NORMAL_MODE: int = 7
-HARD_MODE: int = 4
+EASY_SCORE_MULTIPLIER: int = 10
+NORMAL_SCORE_MULTIPLIER: int = 30
+HARD_SCORE_MULTIPLIER: int = 70
+EASY_MODE_TRIES: int = 10
+NORMAL_MODE_TRIES: int = 7
+HARD_MODE_TRIES: int = 4
+CURRENT_SCORE: int = 0
+HIGH_SCORE: int = 0
 
 
 # Method that starts the match
 def run():
     secret()
     game_mode()
-    logos(1)
+    logos(1, None)
     play()
 
 
 # Method that make a play in the game
 def play():
+    logos(15, None)
     check(guess_word())
 
 
 # Method that contains all messages outputs from the application
-def logos(value):
+def logos(value, element):
     if value == 1:
-        print("########################################")
-        print("###          TIME TO PLAY            ###")
-        print("########################################")
+        print("========================================")
+        print("===          TIME TO PLAY            ===")
+        print("========================================")
     elif value == 2:
-        print("########################################")
-        print("###    WELCOME TO GUESS THE WORD     ###")
-        print("########################################")
+        print("========================================")
+        print("===    WELCOME TO GUESS THE WORD     ===")
+        print("========================================")
     elif value == 3:
-        print("########################################")
-        print("###       SELECT A GAME MODE         ###")
-        print("########################################")
-        print("###       1 - EASY                   ###")
-        print("###       2 - NORMAL                 ###")
-        print("###       3 - HARD                   ###")
-        print("########################################")
+        print("========================================")
+        print("===       SELECT A GAME MODE         ===")
+        print("========================================")
+        print("===       1 - EASY                   ===")
+        print("===       2 - NORMAL                 ===")
+        print("===       3 - HARD                   ===")
+        print("========================================")
     elif value == 4:
-        print("########################################")
+        print("========================================")
         print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
-        print("########################################")
+        print("========================================")
     elif value == 5:
-        print("########################################")
         print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
-        print("########################################")
     elif value == 6:
-        print("########################################")
         print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
-        print("########################################")
     elif value == 7:
-        print("########################################")
         print("No game mode with the given option!")
-        print("########################################")
     elif value == 8:
-        print("########################################")
-        print("You Win!\nTotal Score: " + str(SCORE))
-        print("########################################")
+        print("========================================")
+        print("===            You Win!              ===")
+        print("===         Total Score: " + str(CURRENT_SCORE) + "         ===")
+        print("========================================")
     elif value == 9:
-        print("########################################")
         print("The word has this letters: ")
-        print("########################################")
     elif value == 10:
-        print("########################################")
         print("Keep Trying")
-        print("########################################")
     elif value == 11:
-        print("########################################")
-        print("###   Do you want to play again?     ###")
-        print("###   1 - YES                        ###")
-        print("###   2 - NO                         ###")
-        print("########################################")
+        print("========================================")
+        print("===   Do you want to play again?     ===")
+        print("===   1 - YES                        ===")
+        print("===   2 - NO                         ===")
+        print("========================================")
     elif value == 12:
-        print("########################################")
         print("Great!\nCan you beat your previous score?")
-        print("########################################")
     elif value == 13:
-        print("########################################")
         print("Thanks for playing.\nSee you next time!")
-        print("########################################")
     elif value == 14:
         print("########################################")
         print("###            GAME OVER             ###")
         print("########################################")
+    elif value == 15:
+        print("You still have " + str(TRIES) + " attempts left")
+    elif value == 16:
+        print("The character '" + element + "'" + " is correct!")
+    elif value == 17:
+        print("The character '" + element + "'" + " is not correct!")
+    elif value == 18:
+        print("========================================")
+        print("===        CONGRATULATIONS!          ===")
+        print("===   YOU HIT A NEW HIGH SCORE!      ===")
+        print("========================================")
+        print("===   PREVIUS HIGH SCORE: " + str(HIGH_SCORE))
+        print("===   NEW HIGH SCORE: " + str(CURRENT_SCORE))
+        print("========================================")
 
 
 # Method that gets the secret word from the opponent to set up the match
 def secret():
-    logos(2)
+    logos(2, None)
     global SECRET_WORD
-    SECRET_WORD = input("Input a Secret Word: ")
+    SECRET_WORD = input("Input a Secret Word: ").lower()
 
 
 # Method that shows the game modes to the player
 def game_mode():
-    logos(3)
+    logos(3, None)
     selection()
 
 
@@ -110,19 +118,19 @@ def selection():
     option = int(input("Select a mode: "))
     global TRIES, GAME_MODE_VALUE
     if option == 1:
-        TRIES = EASY_MODE
+        TRIES = EASY_MODE_TRIES
         GAME_MODE_VALUE = option
-        logos(4)
+        logos(4, None)
     elif option == 2:
         GAME_MODE_VALUE = option
-        TRIES = NORMAL_MODE
-        logos(5)
+        TRIES = NORMAL_MODE_TRIES
+        logos(5, None)
     elif option == 3:
         GAME_MODE_VALUE = option
-        TRIES = HARD_MODE
-        logos(6)
+        TRIES = HARD_MODE_TRIES
+        logos(6, None)
     else:
-        logos(7)
+        logos(7, None)
         selection()
 
 
@@ -134,50 +142,72 @@ def guess_word():
 
 
 # Method that checks if the guess word is correct or not
-def check(guess):
-    global SCORE, TRIES
+def check(guess: str):
+    global CURRENT_SCORE, TRIES
     if TRIES > 0:
         if guess == SECRET_WORD:
-            SCORE += WINNING_BONUS
+            CURRENT_SCORE += WINNING_BONUS
             score_calc()
-            logos(8)
+            logos(8, None)
+            check_high_score()
             replay()
         elif guess in SECRET_WORD:
-            SCORE -= IS_IN_THE_GUESS
-            TRIES -= len(guess)
-            logos(9)
+            CURRENT_SCORE -= IS_IN_THE_GUESS
+            check_correct_caracters(guess)
+            logos(9, None)
             play()
         else:
-            TRIES -= 1
-            SCORE -= IS_NOT_IN_THE_GUESS
-            logos(10)
+            check_correct_caracters(guess)
+            CURRENT_SCORE -= IS_NOT_IN_THE_GUESS
+            logos(10, None)
             play()
     else:
-        logos(14)
+        logos(14, None)
         replay()
         return 0
 
 
+# Method that checks if the given guess has some correct or incorrect characters
+def check_correct_caracters(guess: str):
+    global TRIES
+    for element in guess:
+        if element in SECRET_WORD:
+            logos(16, element)
+        else:
+            logos(17, element)
+            TRIES -= 1
+
+
 # Method that calculates the score based on the game mode
 def score_calc():
-    global SCORE, TRIES, GAME_MODE_VALUE
+    global CURRENT_SCORE
     if GAME_MODE_VALUE == 1:
-        SCORE += TRIES * 5
+        CURRENT_SCORE += TRIES * EASY_SCORE_MULTIPLIER
     elif GAME_MODE_VALUE == 2:
-        SCORE += TRIES * 7
+        CURRENT_SCORE += TRIES * NORMAL_SCORE_MULTIPLIER
     elif GAME_MODE_VALUE == 3:
-        SCORE += TRIES * 10
+        CURRENT_SCORE += TRIES * HARD_SCORE_MULTIPLIER
+
+
+# Method that checks if a new high score is set
+def check_high_score():
+    global HIGH_SCORE
+    if CURRENT_SCORE > HIGH_SCORE:
+        logos(18, None)
+        HIGH_SCORE = CURRENT_SCORE
 
 
 # Method that asks the user if he wants to play again or close the application
 def replay():
-    logos(11)
+    global CURRENT_SCORE
+    logos(11, None)
     option = int(input(""))
     if option == 1:
-        logos(12)
+        logos(12, None)
+        CURRENT_SCORE = 0
         run()
     else:
-        logos(13)
+        logos(13, None)
         return 0
 
 
