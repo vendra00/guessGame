@@ -60,6 +60,20 @@ def logos(value):
         print("########################################")
         print("Keep Trying")
         print("########################################")
+    elif value == 11:
+        print("########################################")
+        print("###   Do you want to play again?     ###")
+        print("###   1 - YES                        ###")
+        print("###   2 - NO                         ###")
+        print("########################################")
+    elif value == 12:
+        print("########################################")
+        print("Great!\nCan you beat your previous score?")
+        print("########################################")
+    elif value == 13:
+        print("########################################")
+        print("Thanks for playing.\nSee you next time!")
+        print("########################################")
 
 
 def secret():
@@ -105,6 +119,7 @@ def check(guess):
         score += 100
         score_calc()
         logos(8)
+        replay()
     elif guess in secret_word:
         score -= 5
         tries -= 1
@@ -125,6 +140,17 @@ def score_calc():
         score += tries * 7
     elif game_mode_value == 3:
         score += tries * 10
+
+
+def replay():
+    logos(11)
+    option = int(input(""))
+    if option == 1:
+        logos(12)
+        run()
+    else:
+        logos(13)
+        return 0
 
 
 run()
