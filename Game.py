@@ -182,7 +182,6 @@ def check_correct_caracters(guess: str):
                 replay()
 
 
-
 # Method that calculates the score based on the game mode
 def score_calculator():
     global CURRENT_SCORE
