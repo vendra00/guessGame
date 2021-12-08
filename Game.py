@@ -214,6 +214,5 @@ def replay():
         logos(13, None)
         return 0
 
-#binho comment
 
 run()
