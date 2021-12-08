@@ -147,7 +147,7 @@ def check(guess: str):
     if TRIES > 0:
         if guess == SECRET_WORD:
             CURRENT_SCORE += WINNING_BONUS
-            score_calc()
+            score_calculator()
             logos(8, None)
             check_high_score()
             replay()
@@ -175,11 +175,16 @@ def check_correct_caracters(guess: str):
             logos(16, element)
         else:
             logos(17, element)
-            TRIES -= 1
+            if TRIES > 0:
+                TRIES -= 1
+            else:
+                logos(14, None)
+                replay()
+
 
 
 # Method that calculates the score based on the game mode
-def score_calc():
+def score_calculator():
     global CURRENT_SCORE
     if GAME_MODE_VALUE == 1:
         CURRENT_SCORE += TRIES * EASY_SCORE_MULTIPLIER
