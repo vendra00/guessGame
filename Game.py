@@ -99,7 +99,7 @@ def logos(value, element):
         print("===        CONGRATULATIONS!          ===")
         print("===   YOU HIT A NEW HIGH SCORE!      ===")
         print("========================================")
-        print("===   PREVIUS HIGH SCORE: " + str(HIGH_SCORE))
+        print("===   PREVIOUS HIGH SCORE: " + str(HIGH_SCORE))
         print("===   NEW HIGH SCORE: " + str(CURRENT_SCORE))
         print("========================================")
     elif value == 19:
@@ -127,10 +127,10 @@ def game_mode():
 # Method that get the selected game mode from the player
 def selection():
     global TRIES, GAME_MODE_VALUE
-    option: int
+    option: int = 0
     try:
         option = int(input("Select a mode: "))
-    except ValueError as e:
+    except ValueError:
         logos(19, None)
         selection()
     if option == 1:
@@ -150,7 +150,7 @@ def selection():
         selection()
 
 
-# Method that get a guess word o char from the player and returns the value
+# Method that get a guess word to char from the player and returns the value
 def guess_word():
     user_guess = input("Input a Guess: ")
     print(user_guess)
@@ -168,18 +168,18 @@ def check(guess: str):
         replay()
     elif guess in SECRET_WORD:
         CURRENT_SCORE -= IS_IN_THE_GUESS
-        check_correct_caracters(guess)
+        check_correct_characters(guess)
         logos(9, None)
         play()
     else:
-        check_correct_caracters(guess)
+        check_correct_characters(guess)
         CURRENT_SCORE -= IS_NOT_IN_THE_GUESS
         logos(10, None)
         play()
 
 
 # Method that checks if the given guess has some correct or incorrect characters
-def check_correct_caracters(guess: str):
+def check_correct_characters(guess: str):
     global TRIES
     for element in guess:
         if element in SECRET_WORD:
@@ -216,10 +216,10 @@ def check_high_score():
 def replay():
     global CURRENT_SCORE
     logos(11, None)
-    option: int
+    option: int = 0
     try:
         option = int(input(""))
-    except ValueError as e:
+    except ValueError:
         logos(19, None)
         selection()
     if option == 1:
@@ -232,5 +232,6 @@ def replay():
     else:
         logos(20, None)
         replay()
+
 
 run()
