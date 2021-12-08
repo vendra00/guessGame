@@ -30,7 +30,11 @@ def run():
 # Method that make a play in the game
 def play():
     logos(15, None)
-    check(guess_word())
+    if TRIES > 0:
+        check(guess_word())
+    else:
+        logos(14, None)
+        replay()
 
 
 # Method that contains all messages outputs from the application
@@ -98,6 +102,13 @@ def logos(value, element):
         print("===   PREVIUS HIGH SCORE: " + str(HIGH_SCORE))
         print("===   NEW HIGH SCORE: " + str(CURRENT_SCORE))
         print("========================================")
+    elif value == 19:
+        print("========================================")
+        print("===      Not a proper option!        ===")
+        print("===          Try it again            ===")
+        print("========================================")
+    elif value == 20:
+        print("Not a valid option!")
 
 
 # Method that gets the secret word from the opponent to set up the match
@@ -115,8 +126,13 @@ def game_mode():
 
 # Method that get the selected game mode from the player
 def selection():
-    option = int(input("Select a mode: "))
     global TRIES, GAME_MODE_VALUE
+    option: int
+    try:
+        option = int(input("Select a mode: "))
+    except ValueError as e:
+        logos(19, None)
+        selection()
     if option == 1:
         TRIES = EASY_MODE_TRIES
         GAME_MODE_VALUE = option
@@ -144,27 +160,22 @@ def guess_word():
 # Method that checks if the guess word is correct or not
 def check(guess: str):
     global CURRENT_SCORE, TRIES
-    if TRIES > 0:
-        if guess == SECRET_WORD:
-            CURRENT_SCORE += WINNING_BONUS
-            score_calculator()
-            logos(8, None)
-            check_high_score()
-            replay()
-        elif guess in SECRET_WORD:
-            CURRENT_SCORE -= IS_IN_THE_GUESS
-            check_correct_caracters(guess)
-            logos(9, None)
-            play()
-        else:
-            check_correct_caracters(guess)
-            CURRENT_SCORE -= IS_NOT_IN_THE_GUESS
-            logos(10, None)
-            play()
-    else:
-        logos(14, None)
+    if guess == SECRET_WORD:
+        CURRENT_SCORE += WINNING_BONUS
+        score_calculator()
+        logos(8, None)
+        check_high_score()
         replay()
-        return 0
+    elif guess in SECRET_WORD:
+        CURRENT_SCORE -= IS_IN_THE_GUESS
+        check_correct_caracters(guess)
+        logos(9, None)
+        play()
+    else:
+        check_correct_caracters(guess)
+        CURRENT_SCORE -= IS_NOT_IN_THE_GUESS
+        logos(10, None)
+        play()
 
 
 # Method that checks if the given guess has some correct or incorrect characters
@@ -205,14 +216,21 @@ def check_high_score():
 def replay():
     global CURRENT_SCORE
     logos(11, None)
-    option = int(input(""))
+    option: int
+    try:
+        option = int(input(""))
+    except ValueError as e:
+        logos(19, None)
+        selection()
     if option == 1:
         logos(12, None)
         CURRENT_SCORE = 0
         run()
-    else:
+    elif option == 2:
         logos(13, None)
         return 0
-
+    else:
+        logos(20, None)
+        replay()
 
 run()
