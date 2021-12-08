@@ -126,13 +126,16 @@ def game_mode():
 
 # Method that get the selected game mode from the player
 def selection():
+
     global TRIES, GAME_MODE_VALUE
     option: int = 0
+
     try:
         option = int(input("Select a mode: "))
     except ValueError:
         logos(19, None)
-        selection()
+        game_mode()
+
     if option == 1:
         TRIES = EASY_MODE_TRIES
         GAME_MODE_VALUE = option
@@ -147,7 +150,7 @@ def selection():
         logos(6, None)
     else:
         logos(7, None)
-        selection()
+        game_mode()
 
 
 # Method that get a guess word to char from the player and returns the value
@@ -221,7 +224,7 @@ def replay():
         option = int(input(""))
     except ValueError:
         logos(19, None)
-        selection()
+        replay()
     if option == 1:
         logos(12, None)
         CURRENT_SCORE = 0
