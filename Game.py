@@ -1,5 +1,8 @@
+from model import Player
+
 # Undefined Global Variables
 SECRET_WORD: str
+SECRET_WORD_BUILDER: str
 CORRECT_CHARS: str
 INCORRECT_CHARS: str
 GAME_MODE_VALUE: int
@@ -21,24 +24,31 @@ HIGH_SCORE: int = 0
 
 # Method that starts the match
 def run():
-    secret()
+    set_secret_word()
     game_mode()
-    logos(1, None)
+    game_states(1)
     play()
+
+
+def create_player():
+    name: str = input("Player Name: ")
+    player = Player.Player()
+    player.set_name(name)
+    print(player.get_name())
 
 
 # Method that make a play in the game
 def play():
-    logos(15, None)
+    game_states(15)
     if TRIES > 0:
         check(guess_word())
     else:
-        logos(14, None)
+        game_states(14)
         replay()
 
 
 # Method that contains all messages outputs from the application
-def logos(value, element):
+def game_states(value: int, element=None):
     if value == 1:
         print("========================================")
         print("===          TIME TO PLAY            ===")
@@ -55,14 +65,10 @@ def logos(value, element):
         print("===       2 - NORMAL                 ===")
         print("===       3 - HARD                   ===")
         print("========================================")
-    elif value == 4:
+    elif value == 4 or value == 5 or value == 6:
         print("========================================")
         print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
         print("========================================")
-    elif value == 5:
-        print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
-    elif value == 6:
-        print("You will have : " + str(TRIES) + " attempts.\nGood Luck!")
     elif value == 7:
         print("No game mode with the given option!")
     elif value == 8:
@@ -81,7 +87,9 @@ def logos(value, element):
         print("===   2 - NO                         ===")
         print("========================================")
     elif value == 12:
-        print("Great!\nCan you beat your previous score?")
+        print("========================================")
+        print("===              Great!              ===")
+        print("========================================")
     elif value == 13:
         print("Thanks for playing.\nSee you next time!")
     elif value == 14:
@@ -112,44 +120,41 @@ def logos(value, element):
 
 
 # Method that gets the secret word from the opponent to set up the match
-def secret():
-    logos(2, None)
+def set_secret_word():
+    game_states(2)
     global SECRET_WORD
     SECRET_WORD = input("Input a Secret Word: ").lower()
 
 
 # Method that shows the game modes to the player
 def game_mode():
-    logos(3, None)
-    selection()
+    game_states(3)
+    game_mode_set_up()
 
 
 # Method that get the selected game mode from the player
-def selection():
-
+def game_mode_set_up():
     global TRIES, GAME_MODE_VALUE
     option: int = 0
-
     try:
-        option = int(input("Select a mode: "))
+        option = int(input("Select a game mode: "))
     except ValueError:
-        logos(19, None)
+        game_states(19)
         game_mode()
-
     if option == 1:
         TRIES = EASY_MODE_TRIES
         GAME_MODE_VALUE = option
-        logos(4, None)
+        game_states(4)
     elif option == 2:
         GAME_MODE_VALUE = option
         TRIES = NORMAL_MODE_TRIES
-        logos(5, None)
+        game_states(5)
     elif option == 3:
         GAME_MODE_VALUE = option
         TRIES = HARD_MODE_TRIES
-        logos(6, None)
+        game_states(6)
     else:
-        logos(7, None)
+        game_states(7)
         game_mode()
 
 
@@ -166,18 +171,18 @@ def check(guess: str):
     if guess == SECRET_WORD:
         CURRENT_SCORE += WINNING_BONUS
         score_calculator()
-        logos(8, None)
+        game_states(8)
         check_high_score()
         replay()
     elif guess in SECRET_WORD:
         CURRENT_SCORE -= IS_IN_THE_GUESS
         check_correct_characters(guess)
-        logos(9, None)
+        game_states(9)
         play()
     else:
         check_correct_characters(guess)
         CURRENT_SCORE -= IS_NOT_IN_THE_GUESS
-        logos(10, None)
+        game_states(10)
         play()
 
 
@@ -186,13 +191,13 @@ def check_correct_characters(guess: str):
     global TRIES
     for element in guess:
         if element in SECRET_WORD:
-            logos(16, element)
+            game_states(16, element)
         else:
-            logos(17, element)
+            game_states(17, element)
             if TRIES > 0:
                 TRIES -= 1
             else:
-                logos(14, None)
+                game_states(14)
                 replay()
 
 
@@ -211,29 +216,29 @@ def score_calculator():
 def check_high_score():
     global HIGH_SCORE
     if CURRENT_SCORE > HIGH_SCORE:
-        logos(18, None)
+        game_states(18)
         HIGH_SCORE = CURRENT_SCORE
 
 
 # Method that asks the user if he wants to play again or close the application
 def replay():
     global CURRENT_SCORE
-    logos(11, None)
+    game_states(11)
     option: int = 0
     try:
         option = int(input(""))
     except ValueError:
-        logos(19, None)
+        game_states(19)
         replay()
     if option == 1:
-        logos(12, None)
+        game_states(12)
         CURRENT_SCORE = 0
         run()
     elif option == 2:
-        logos(13, None)
+        game_states(13)
         return 0
     else:
-        logos(20, None)
+        game_states(20)
         replay()
 
 
