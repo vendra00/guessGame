@@ -1,17 +1,18 @@
 from enum import Enum
+from collections import namedtuple
 
 
-class LeatherSet(Enum):
-    Leather_Helmet = 1
-    Leather_Armor = 2
-    Leather_Bracers = 3
-    Leather_Boots = 4
-    Leather_Shoulders = 5
+class LeatherSet(namedtuple('LeatherSet', 'condition armor'), Enum):
+    Leather_Helmet = 100, 1
+    Leather_Armor = 100, 3
+    Leather_Bracers = 100, 1
+    Leather_Boots = 100, 1
+    Leather_Shoulders = 100, 1
 
 
-class PlateSet(Enum):
-    Plate_Helmet = 1
-    Leather_Armor = 2
-    Leather_Bracers = 3
-    Leather_Boots = 4
-    Leather_Shoulders = 5
+class PlateSet(namedtuple('PlateSet', 'condition armor'), Enum):
+    Plate_Helmet = 100, 2
+    Plate_Armor = 100, 5
+    Plate_Bracers = 100, 2
+    Plate_Boots = 100, 2
+    Plate_Shoulders = 100, 2
