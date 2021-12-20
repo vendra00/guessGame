@@ -58,29 +58,21 @@ def set_equipment(monster):
     # name: EquipmentName, placement: EquipmentPlacement, condition: int, armor: int
     if monster.name.value == Bestiary(4).value or monster.name.value == Bestiary(7).value:
         setType = take_armor_set()
-        inventory.append(Equipment(setType.Helmet.the_name, EquipmentPlacement(1).name,
-                                   int(setType.Helmet.condition),
+        inventory.append(Equipment(setType.Helmet.the_name, EquipmentPlacement(1).name, int(setType.Helmet.condition),
                                    int(setType.Helmet.armor)))
-        inventory.append(Equipment(setType.Armor.the_name, EquipmentPlacement(5).name,
-                                   int(setType.Armor.condition),
+        inventory.append(Equipment(setType.Armor.the_name, EquipmentPlacement(5).name, int(setType.Armor.condition),
                                    int(setType.Armor.armor)))
-        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(6).name,
-                                   int(setType.Bracers.condition),
+        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(6).name, int(setType.Bracers.condition),
                                    int(setType.Bracers.armor)))
-        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(7).name,
-                                   int(setType.Bracers.condition),
+        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(7).name, int(setType.Bracers.condition),
                                    int(setType.Bracers.armor)))
-        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(13).name,
-                                   int(setType.Boots.condition),
+        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(13).name, int(setType.Boots.condition),
                                    int(setType.Boots.armor)))
-        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(14).name,
-                                   int(setType.Boots.condition),
+        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(14).name, int(setType.Boots.condition),
                                    int(setType.Boots.armor)))
-        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(3).name,
-                                   int(setType.Shoulders.condition),
+        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(3).name, int(setType.Shoulders.condition),
                                    int(setType.Shoulders.armor)))
-        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(4).name,
-                                   int(setType.Shoulders.condition),
+        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(4).name, int(setType.Shoulders.condition),
                                    int(setType.Shoulders.armor)))
         monster.equipment = inventory
 

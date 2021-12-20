@@ -7,6 +7,7 @@ from myEnums.PlayerRace import PlayerRace
 from service.GameStateService import game_state
 
 
+# Method that set a character name
 def set_name(character: Character):
     game_state(4)
     try:
@@ -17,12 +18,14 @@ def set_name(character: Character):
     check_name(character)
 
 
+# Method that verify if the name is valid
 def check_name(character: Character):
     if not re.search(r"^([a-zA-Z]+\s?[a-zA-Z]+)+?$", character.name):
         game_state(101)
         set_name(character)
 
 
+# Method that set a character gender
 def set_gender(character: Character):
     game_state(5)
     try:
@@ -32,26 +35,27 @@ def set_gender(character: Character):
         set_gender(character)
 
 
+# Method that set a character main class
 def set_player_class(character: Character):
     game_state(6)
     try:
-        player_class = int(input("===   Select a class: "))
+        character.player_class = PlayerClass(int(input("===   Select a class: ")))
     except ValueError:
         game_state(100)
-        set_player_class()
-    PlayerClass(player_class)
+        set_player_class(character)
 
 
+# Method that set character race
 def set_player_race(character: Character):
     game_state(7)
     try:
-        player_race = int(input("===   Select a race: "))
+        character.player_race = PlayerRace(int(input("===   Select a race: ")))
     except ValueError:
         game_state(100)
-        set_player_race()
-    PlayerRace(player_race)
+        set_player_race(character)
 
 
+# Method that create and set a character
 def create_character():
     # name: str = None, gender: Gender = None, player_class: PlayerClass = None,
     # player_race: PlayerRace = None, exp: int = 0
@@ -60,5 +64,4 @@ def create_character():
     set_gender(character)
     set_player_class(character)
     set_player_race(character)
-    print(character.name, character.gender.name.capitalize())
-
+    print(character.name.capitalize(), character.gender.name, character.player_class.name, character.player_race.name)
