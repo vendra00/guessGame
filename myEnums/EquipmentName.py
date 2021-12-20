@@ -19,6 +19,14 @@ class HideSet(namedtuple('HideSet', 'condition armor weight type the_name'), Enu
     Shoulders = 100, 5, 1, 'Light Armor', 'Hide Shoulders'
 
 
+class ScaledSet(namedtuple('ScaledSet', 'condition armor weight type the_name'), Enum):
+    Helmet = 100, 14, 2, 'Light Armor', 'Scaled Helmet'
+    Armor = 100, 32, 6, 'Light Armor', 'Scaled Armor'
+    Bracers = 100, 9, 2, 'Light Armor', 'Scaled Bracer'
+    Boots = 100, 9, 2, 'Light Armor', 'Scaled Boots'
+    Shoulders = 100, 8, 3, 'Light Armor', 'Scaled Shoulders'
+
+
 class IronSet(namedtuple('IronSet', 'condition armor weight type the_name'), Enum):
     Helmet = 100, 15, 5, 'Heavy Armor', 'Iron Helmet'
     Armor = 100, 25, 30, 'Heavy Armor', 'Iron Armor'
@@ -38,5 +46,5 @@ class SteelSet(namedtuple('SteelSet', 'condition armor weight type the_name'), E
 
 
 def take_armor_set():
-    setList = [LeatherSet, HideSet, IronSet, SteelSet]
+    setList = [LeatherSet, HideSet, IronSet, SteelSet, ScaledSet]
     return random.choice(list(setList))

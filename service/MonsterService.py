@@ -3,7 +3,7 @@ import random
 
 from model.Equipment import Equipment
 from myEnums.Bestiary import Bestiary
-from myEnums.EquipmentName import LeatherSet, take_armor_set
+from myEnums.EquipmentName import take_armor_set
 from myEnums.EquipmentPlacement import EquipmentPlacement
 from myEnums.MonsterType import MonsterType
 from myEnums.Size import Size
