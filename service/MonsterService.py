@@ -3,7 +3,7 @@ import random
 
 from model.Equipment import Equipment
 from myEnums.Bestiary import Bestiary
-from myEnums.EquipmentName import LeatherSet
+from myEnums.EquipmentName import LeatherSet, take_armor_set
 from myEnums.EquipmentPlacement import EquipmentPlacement
 from myEnums.MonsterType import MonsterType
 from myEnums.Size import Size
@@ -57,30 +57,31 @@ def set_equipment(monster):
     inventory = []
     # name: EquipmentName, placement: EquipmentPlacement, condition: int, armor: int
     if monster.name.value == Bestiary(4).value or monster.name.value == Bestiary(7).value:
-        inventory.append(Equipment(LeatherSet.Leather_Helmet.name, EquipmentPlacement(1).name,
-                                   int(LeatherSet.Leather_Helmet.condition),
-                                   int(LeatherSet.Leather_Helmet.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Armor.name, EquipmentPlacement(5).name,
-                                   int(LeatherSet.Leather_Armor.condition),
-                                   int(LeatherSet.Leather_Armor.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Bracers.name, EquipmentPlacement(6).name,
-                                   int(LeatherSet.Leather_Bracers.condition),
-                                   int(LeatherSet.Leather_Bracers.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Bracers.name, EquipmentPlacement(7).name,
-                                   int(LeatherSet.Leather_Bracers.condition),
-                                   int(LeatherSet.Leather_Bracers.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Boots.name, EquipmentPlacement(13).name,
-                                   int(LeatherSet.Leather_Boots.condition),
-                                   int(LeatherSet.Leather_Boots.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Boots.name, EquipmentPlacement(14).name,
-                                   int(LeatherSet.Leather_Boots.condition),
-                                   int(LeatherSet.Leather_Boots.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Shoulders.name, EquipmentPlacement(3).name,
-                                   int(LeatherSet.Leather_Shoulders.condition),
-                                   int(LeatherSet.Leather_Shoulders.armor)))
-        inventory.append(Equipment(LeatherSet.Leather_Shoulders.name, EquipmentPlacement(4).name,
-                                   int(LeatherSet.Leather_Shoulders.condition),
-                                   int(LeatherSet.Leather_Shoulders.armor)))
+        setType = take_armor_set()
+        inventory.append(Equipment(setType.Helmet.the_name, EquipmentPlacement(1).name,
+                                   int(setType.Helmet.condition),
+                                   int(setType.Helmet.armor)))
+        inventory.append(Equipment(setType.Armor.the_name, EquipmentPlacement(5).name,
+                                   int(setType.Armor.condition),
+                                   int(setType.Armor.armor)))
+        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(6).name,
+                                   int(setType.Bracers.condition),
+                                   int(setType.Bracers.armor)))
+        inventory.append(Equipment(setType.Bracers.the_name, EquipmentPlacement(7).name,
+                                   int(setType.Bracers.condition),
+                                   int(setType.Bracers.armor)))
+        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(13).name,
+                                   int(setType.Boots.condition),
+                                   int(setType.Boots.armor)))
+        inventory.append(Equipment(setType.Boots.the_name, EquipmentPlacement(14).name,
+                                   int(setType.Boots.condition),
+                                   int(setType.Boots.armor)))
+        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(3).name,
+                                   int(setType.Shoulders.condition),
+                                   int(setType.Shoulders.armor)))
+        inventory.append(Equipment(setType.Shoulders.the_name, EquipmentPlacement(4).name,
+                                   int(setType.Shoulders.condition),
+                                   int(setType.Shoulders.armor)))
         monster.equipment = inventory
 
 
