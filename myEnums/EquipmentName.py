@@ -1,6 +1,7 @@
+import logging
+import random
 from enum import Enum
 from collections import namedtuple
-import random
 
 
 class LeatherSet(namedtuple('LeatherSet', 'condition armor weight type the_name'), Enum):
@@ -46,5 +47,6 @@ class SteelSet(namedtuple('SteelSet', 'condition armor weight type the_name'), E
 
 
 def take_armor_set():
+    logging.info('called')
     setList = [LeatherSet, HideSet, IronSet, SteelSet, ScaledSet]
     return random.choice(list(setList))

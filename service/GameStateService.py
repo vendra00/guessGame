@@ -1,4 +1,8 @@
+import logging
+
+
 def game_state(state: int):
+    logging.info('Game State value (%s) - called', state)
     match state:
         case 1:
             print("========================================")

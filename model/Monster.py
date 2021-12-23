@@ -1,3 +1,5 @@
+import logging
+
 from model.Equipment import Equipment
 from myEnums.Bestiary import Bestiary
 from myEnums.MonsterType import MonsterType
@@ -9,6 +11,7 @@ class Monster(object):
 
     def __init__(self, name: Bestiary = None, monster_type: MonsterType = None, equipment: [Equipment] = None,
                  size: Size = None, hp: int = 0, attack: int = 0, armor: int = 0, exp: int = 0):
+        logging.info('called')
         self.name = name
         self.monster_type = monster_type
         self.size = size

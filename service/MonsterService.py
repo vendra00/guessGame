@@ -1,5 +1,6 @@
 from model import Monster
 import random
+import logging
 
 from model.Equipment import Equipment
 from myEnums.Bestiary import Bestiary
@@ -7,6 +8,7 @@ from myEnums.EquipmentName import take_armor_set
 from myEnums.EquipmentPlacement import EquipmentPlacement
 from myEnums.MonsterType import MonsterType
 from myEnums.Size import Size
+from utils.LoggerConfig import log_config
 
 
 # Method that create and set a Monster in the game
@@ -27,11 +29,13 @@ def generate_monster():
 
 # Method that set a name of a monster randomly from a list
 def set_name(monster: Monster):
+    logging.info('called')
     monster.name = random.choice(list(Bestiary))
 
 
 # Method that set a monster type from an enum
 def set_monster_type(monster: Monster):
+    logging.info('called')
     if monster.name.value == Bestiary(1).value or monster.name.value == Bestiary(3).value:
         monster.monster_type = MonsterType(1)
     elif monster.name.value == Bestiary(4).value or monster.name.value == Bestiary(7).value:
@@ -46,6 +50,7 @@ def set_monster_type(monster: Monster):
 
 # Method that sets a monster size from an enum
 def set_size(monster):
+    logging.info('called')
     if monster.name.value == Bestiary(2).value or monster.name.value == Bestiary(5).value \
             or monster.name.value == Bestiary(6).value or monster.name.value == Bestiary(8).value:
         monster.size = Size(1)
@@ -57,6 +62,7 @@ def set_size(monster):
 
 # Method that sets a monster equipment
 def set_equipment(monster):
+    logging.info('called')
     inventory = []
     # name: EquipmentName, placement: EquipmentPlacement, condition: int, armor: int
     if monster.name.value == Bestiary(4).value or monster.name.value == Bestiary(7).value:
@@ -82,6 +88,7 @@ def set_equipment(monster):
 
 # Method that sets a monster hp based on his size
 def set_hp(monster):
+    logging.info('called')
     if monster.size.value == Size(1).value:
         monster.hp += 25
     elif monster.size.value == Size(2).value:
@@ -92,6 +99,7 @@ def set_hp(monster):
 
 # Method that sets a monster attack based on his size
 def set_attack(monster):
+    logging.info('called')
     if monster.size.value == Size(1).value:
         monster.attack += 5
     elif monster.size.value == Size(2).value:
@@ -102,6 +110,7 @@ def set_attack(monster):
 
 # Method that sets a monster armor based on his inventory
 def set_armor(monster):
+    logging.info('called')
     if monster.equipment != [None]:
         for equipment in monster.equipment:
             monster.armor += equipment.armor
@@ -109,7 +118,9 @@ def set_armor(monster):
 
 # Method that sets a monster experience
 def set_exp(monster):
+    logging.info('called')
     monster.exp = 100
 
 
+log_config()
 generate_monster()
